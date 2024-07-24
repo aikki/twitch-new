@@ -145,7 +145,7 @@
             $(".rewards").animate(
                 { left: '-' + random(3100, 3247) + 'px' },
                 {
-                    duration: 10000,
+                    duration: 30000,
                     easing: 'easeOutQuint',
                     complete: function () {
                         notify(data);
