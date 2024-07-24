@@ -28,7 +28,11 @@
         </div>
     </div>
     <hr/>
-
+    <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+        <x-input-label for="obs_browser_source" :value="__('OBS browser source')" />
+        <x-text-input id="obs_browser_source" type="text" class="mt-1 block w-full text-gray-500" :value="route('obs.case_openings.show', [ 'view_key' => $opening->view_key ])" readonly />
+    </div>
+    <hr/>
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
         <h3 class="font-bold">Settings</h3>
         <form method="post" action="{{ route('case_openings.update', [ 'case_opening' => $opening->id ]) }}" class="mt-6 space-y-6">
