@@ -64,7 +64,7 @@
         }
 
         .rewards {
-            width: 5000px;
+            width: 7000px;
             margin: auto;
             display: flex;
             position: absolute;
@@ -143,9 +143,9 @@
 
         let roll = function(data) {
             $(".rewards").animate(
-                { left: '-' + random(3100, 3247) + 'px' },
+                { left: '-' + random(4687, 4835) + 'px' },
                 {
-                    duration: 30000,
+                    duration: 8000,
                     easing: 'easeOutQuint',
                     complete: function () {
                         notify(data);

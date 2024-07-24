@@ -30,11 +30,11 @@ class CaseOpeningController extends Controller
         $opening = CaseOpening::where('view_key', '=', $view_key)->firstOrFail();
 
         $rewards = [];
-        for ($i = 1; $i <= 32; $i++) {
+        for ($i = 1; $i <= 42; $i++) {
                 $rewards[$i] = $opening->randomRewardWeighted;
         }
 
-        $winner = $rewards[24];
+        $winner = $rewards[34];
 
         CaseOpeningRedemption::fromRewardAndRequestData($winner, $request->all())->save();
 
