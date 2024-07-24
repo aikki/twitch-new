@@ -25,9 +25,9 @@
             border: 2px solid black;
         }
 
-        .winner {
-            border: 2px solid hotpink;
-        }
+        /*.winner {*/
+        /*    border: 2px solid hotpink;*/
+        /*}*/
 
         .reward .image {
             margin: auto;
