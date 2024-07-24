@@ -25,9 +25,9 @@
             border: 2px solid black;
         }
 
-        /*.winner {*/
-        /*    border: 2px solid hotpink;*/
-        /*}*/
+        .winner {
+            border: 2px solid hotpink;
+        }
 
         .reward .image {
             margin: auto;
@@ -93,11 +93,11 @@
             border-color: black transparent transparent transparent;
         }
         .container .line {
-            width: 2px;
+            width: 6px;
             height: 180px;
             position: absolute;
-            left: 499px;
-            background-color: rgba(0,0,0,0.3);
+            left: 497px;
+            background-color: rgba(0,0,0,0.6);
             z-index: 1;
         }
 
@@ -142,13 +142,24 @@
         }
 
         let roll = function(data) {
-            $(".rewards").animate(
+            setTimeout(function() {
+                let audio = new Audio('/audio/tada.mp3');
+                audio.volume = 1;
+                audio.play();
+                notify(data);
+            }, 8000)
+            $(".reward").animate(
                 { left: '-' + random(4687, 4835) + 'px' },
                 {
                     duration: 8000,
                     easing: 'easeOutQuint',
-                    complete: function () {
-                        notify(data);
+                    progress: function() {
+                        if ($(this).hasClass('unsound') && this.offsetLeft < 500) {
+                            $(this).removeClass('unsound');
+                            let audio = new Audio('/audio/tick.mp3');
+                            audio.volume = 1;
+                            audio.play();
+                        }
                     }
                 }
             );
