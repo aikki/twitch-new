@@ -206,6 +206,7 @@
                 const json = JSON.parse(message.data);
                 if (json.event && json.event.source === 'Twitch') {
                     if (json.event.type === 'RewardRedemption') {
+                        if (json.data.reward.id === '{{ $opening->streamerbot_reward_id }}')
                         opening(json.data);
                     }
                 }
