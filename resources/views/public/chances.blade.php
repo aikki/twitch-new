@@ -3,6 +3,7 @@
 <head>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=open-sans:400,600|reddit-mono:300" rel="stylesheet" />
+    <title>Case opening rewards</title>
     <style>
         body {
             margin: 0;
