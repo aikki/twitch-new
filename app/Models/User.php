@@ -76,4 +76,11 @@ class User extends Authenticatable
     {
         return $this->filtered_redemptions->sum('twitch_reward_cost');
     }
+
+    public function getPublicCaseOpeningsAttribute(): Collection
+    {
+        return $this->case_openings->filter(function (CaseOpening $case_opening) {
+            return $case_opening->is_public;
+        });
+    }
 }

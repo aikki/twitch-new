@@ -54,6 +54,7 @@ class CaseOpeningController extends Controller
         $case_opening->fill($request->post());
         $case_opening->user_id = $request->user()->id;
         $case_opening->view_key = Str::random(32);
+        $case_opening->is_public = $request->input('is_public', false);
         $case_opening->save();
         return Redirect::route('case_openings.list');
 
@@ -76,6 +77,7 @@ class CaseOpeningController extends Controller
         ]);
 
         $case_opening->fill($request->post());
+        $case_opening->is_public = $request->input('is_public', false);
         $case_opening->save();
         return Redirect::route('case_openings.edit', [ 'case_opening' => $case_opening->id ])->with('message', 'Saved.');
 
