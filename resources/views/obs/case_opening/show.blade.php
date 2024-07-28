@@ -101,6 +101,14 @@
             z-index: 1;
         }
 
+        .error {
+            display: none;
+            font-size: 24px;
+        }
+        .error .details {
+            font-size: 12px;
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
@@ -110,7 +118,10 @@
 
         </div>
     </div>
-
+    <div class="error">
+        <p class="info">{{ __('Oh no! Please tell your streamer, that there\'s something wrong with case opening!') }}</p>
+        <p class="details"></p>
+    </div>
 <script>
     $(function() {
         /*
@@ -174,6 +185,18 @@
                     $('.rewards').html(response.html).css({'left': '0px'});
                     $('.container').fadeIn(1000, function () {
                         roll({...data, ...response.data});
+                    });
+                },
+                error: function(response) {
+                    if (response.responseJSON && response.responseJSON.error) {
+                        $('.error .details').text(response.responseJSON.error);
+                    } else {
+                        $('.error .details').text();
+                    }
+                    $('.error').fadeIn(500, function () {
+                        setTimeout(function() {
+                            $('.error').fadeOut(500);
+                        }, 5000);
                     });
                 }
             });

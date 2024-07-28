@@ -13,11 +13,19 @@
             @foreach ($opening->rewards as $reward)
                 <div class="p-2 hover:bg-gray-100">
                     <div class="float-right">
-                        <a class="font-medium mr-3 hover:text-gray-600" href="{{ route('case_openings.rewards.edit', [ 'reward' => $reward->id ]) }}">Edit</a>
-                        <a class="font-medium text-red-600 hover:text-red-400" href="{{ route('case_openings.rewards.edit', [ 'reward' => $reward->id ]) }}">Remove</a>
+                        <a class="font-medium mr-1 hover:text-gray-600" href="{{ route('case_openings.rewards.edit', [ 'reward' => $reward->id ]) }}">
+                            <i class="fa fa-fw fa-edit"></i>
+                        </a>
+                        <a class="font-medium hover:text-gray-600" href="{{ route('case_openings.rewards.toggle_pause', [ 'reward' => $reward->id, 'state' => $reward->is_active ]) }}">
+                            <i class="fa fa-fw @if ($reward->is_active) fa-pause @else fa-play @endif"></i>
+                        </a>
                     </div>
-                    <a class="font-medium" href="{{ route('case_openings.rewards.edit', [ 'reward' => $reward->id ]) }}">
-                        <span class="text-xs font-mono text-gray-500">{{ $reward->chance }}</span>
+                    <a class="font-medium @if (!$reward->is_active) text-gray-300 @endif" href="{{ route('case_openings.rewards.edit', [ 'reward' => $reward->id ]) }}">
+                        @if ($reward->is_active)
+                            <span class="text-xs font-mono text-gray-500">{{ $reward->chance }}</span>
+                        @else
+                            <span class="text-xs font-mono">paused</span>
+                        @endif
                         <i class="fa fa-gift"></i>
                         {{ $reward->name }}
                     </a>

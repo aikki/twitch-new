@@ -22,8 +22,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/case_openings/{case_opening}/rewards/create', [CaseOpeningRewardController::class, 'create'])->name('case_openings.rewards.create');
     Route::get('/case_openings/rewards/edit/{reward}', [CaseOpeningRewardController::class, 'edit'])->name('case_openings.rewards.edit');
-    Route::post('/case_openings/{case_opening}/store', [CaseOpeningRewardController::class, 'store'])->name('case_openings.rewards.store');
+    Route::post('/case_openings/{case_opening}/rewards/store', [CaseOpeningRewardController::class, 'store'])->name('case_openings.rewards.store');
     Route::patch('/case_openings/rewards/update/{reward}', [CaseOpeningRewardController::class, 'update'])->name('case_openings.rewards.update');
+    Route::get('/case_openings/rewards/pause/{reward}/{state}', [CaseOpeningRewardController::class, 'pause'])->name('case_openings.rewards.toggle_pause');
 });
 
 Route::get('/obs/case_opening/{view_key}', [OBSCaseOpeningController::class, 'show'])->name('obs.case_openings.show');

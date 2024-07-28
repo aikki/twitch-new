@@ -81,4 +81,12 @@ class CaseOpeningRewardController extends Controller
         return Redirect::route('case_openings.edit', [ 'case_opening' => $reward->parent->id ]);
 
     }
+
+    public function pause(Request $request, CaseOpeningReward $reward, bool $state): RedirectResponse
+    {
+        $reward->is_active = !$state;
+        $reward->save();
+        return Redirect::route('case_openings.edit', [ 'case_opening' => $reward->parent->id ]);
+
+    }
 }

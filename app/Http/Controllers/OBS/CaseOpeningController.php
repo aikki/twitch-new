@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\OBS;
 
+use App\Exceptions\SelectRewardException;
 use App\Http\Controllers\Controller;
 use App\Models\CaseOpening;
 use App\Models\CaseOpeningRedemption;
@@ -29,15 +30,24 @@ class CaseOpeningController extends Controller
     {
         $opening = CaseOpening::where('view_key', '=', $view_key)->firstOrFail();
 
-        $rewards = [];
-        for ($i = 1; $i <= 42; $i++) {
+        try {
+            $rewards = [];
+            for ($i = 1; $i <= 42; $i++) {
                 $rewards[$i] = $opening->randomRewardWeighted;
+            }
+
+            $winner = $rewards[34];
+
+            CaseOpeningRedemption::fromRewardAndRequestData($winner, $request->all())->save();
+        } catch (SelectRewardException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 500);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'General error, please contact support.',
+            ], 500);
         }
-
-        $winner = $rewards[34];
-
-        CaseOpeningRedemption::fromRewardAndRequestData($winner, $request->all())->save();
-
         return response()->json([
             'html' => view('obs.case_opening.rewards', [
                 'rewards' => $rewards,
