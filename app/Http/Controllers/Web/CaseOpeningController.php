@@ -7,6 +7,7 @@ use App\Models\CaseOpening;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -26,10 +27,11 @@ class CaseOpeningController extends Controller
         return view('case_opening.create', []);
     }
 
-    public function edit(Request $request, CaseOpening $caseOpening): View
+    public function edit(Request $request, CaseOpening $case_opening): View
     {
+        Gate::authorize('update', $case_opening);
         return view('case_opening.edit', [
-            'opening' => $caseOpening,
+            'opening' => $case_opening,
         ]);
     }
 
@@ -59,6 +61,7 @@ class CaseOpeningController extends Controller
 
     public function update(Request $request, CaseOpening $case_opening): RedirectResponse
     {
+        Gate::authorize('update', $case_opening);
         $request->validate([
             'name' => [
                 'required',

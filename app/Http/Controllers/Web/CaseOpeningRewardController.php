@@ -8,6 +8,7 @@ use App\Models\CaseOpeningReward;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -16,6 +17,7 @@ class CaseOpeningRewardController extends Controller
 {
     public function create(Request $request, CaseOpening $case_opening): View
     {
+        Gate::authorize('update', $case_opening);
         return view('case_opening.rewards.create', [
             'opening' => $case_opening,
         ]);
@@ -23,6 +25,7 @@ class CaseOpeningRewardController extends Controller
 
     public function edit(Request $request, CaseOpeningReward $reward): View
     {
+        Gate::authorize('update', $reward);
         return view('case_opening.rewards.edit', [
             'reward' => $reward,
         ]);
@@ -30,6 +33,7 @@ class CaseOpeningRewardController extends Controller
 
     public function store(Request $request, CaseOpening $case_opening): RedirectResponse
     {
+        Gate::authorize('update', $case_opening);
         $request->validate([
             'name' => [
                 'required',
@@ -58,6 +62,7 @@ class CaseOpeningRewardController extends Controller
 
     public function update(Request $request, CaseOpeningReward $reward): RedirectResponse
     {
+        Gate::authorize('update', $reward);
         $request->validate([
             'name' => [
                 'required',
@@ -84,6 +89,7 @@ class CaseOpeningRewardController extends Controller
 
     public function pause(Request $request, CaseOpeningReward $reward, bool $state): RedirectResponse
     {
+        Gate::authorize('update', $reward);
         $reward->is_active = !$state;
         $reward->save();
         return Redirect::route('case_openings.edit', [ 'case_opening' => $reward->parent->id ]);
