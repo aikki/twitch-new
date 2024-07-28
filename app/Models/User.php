@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -59,14 +60,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(CaseOpeningRedemption::class);
     }
+    public function getFilteredRedemptionsAttribute(): Collection
+    {
+        return $this->case_opening_redemptions->filter(function ($redemption) {
+            return $redemption->twitch_user_id !== $this->twitch_id;
+        });
+    }
 
     public function getOpenedCasesAttribute(): int
     {
-        return $this->case_opening_redemptions->count();
+        return $this->filtered_redemptions->count();
     }
 
     public function getPointsSpentAttribute(): int
     {
-        return $this->case_opening_redemptions->sum('twitch_reward_cost');
+        return $this->filtered_redemptions->sum('twitch_reward_cost');
     }
 }

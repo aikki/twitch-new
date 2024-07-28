@@ -15,8 +15,12 @@
                         @forelse ($openings as $opening)
                             <div class="p-2 hover:bg-gray-100">
                                 <div class="float-right">
-                                    <a class="font-medium mr-3 hover:text-gray-600" href="{{ route('case_openings.edit', [ 'case_opening' => $opening->id ])  }}">Edit</a>
-                                    <a class="font-medium text-red-600 hover:text-red-400" href="{{ route('case_openings.edit', [ 'case_opening' => $opening->id ])  }}">Remove</a>
+                                    <a class="font-medium mr-1 hover:text-gray-600" href="{{ route('case_openings.edit', [ 'case_opening' => $opening->id ])  }}">
+                                        <i class="fa fa-edit fa-fw"></i>
+                                    </a>
+{{--                                    <a class="font-medium text-red-600 hover:text-red-400" href="{{ route('case_openings.edit', [ 'case_opening' => $opening->id ])  }}">--}}
+{{--                                        <i class="fa fa-trash fa-fw"></i>--}}
+{{--                                    </a>--}}
                                 </div>
                                 <a class="font-medium" href="{{ route('case_openings.edit', [ 'case_opening' => $opening->id ])  }}">
                                     <i class="fa fa-box"></i> {{ $opening->name }}
