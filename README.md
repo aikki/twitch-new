@@ -4,7 +4,7 @@
 
 ## Twitch overlay toys
 
-Some stream overlay tools to enhance your twitch streams for your viewers, built to work with (https://streamer.bot/).
+Some stream overlay tools to enhance your twitch streams for your viewers, built to work with [streamer.bot](https://streamer.bot/).
 For now there's only one feature, which allows your viewers to use their channel points to open a case with custom rewards defined by you (the streamer) with simple web panel.
 Each reward may have custom name, color, image and weight.
 
