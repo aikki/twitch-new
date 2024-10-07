@@ -206,35 +206,38 @@
             WEBSOCKET
          */
         let ws;
-        connect();
+
         function connect() {
             ws = new WebSocket("ws://localhost:8080/");
-        }
-        ws.onclose = function() {
-            setTimeout(connect, 10000);
-        };
-        ws.onopen = function() {
-            ws.send(JSON.stringify(
-                {
-                    "request": "Subscribe",
-                    "id": (request_id++).toString(),
-                    "events": {
-                        "Twitch": [
-                            "RewardRedemption"
-                        ]
-                    },
-                }
-            ));
-            ws.onmessage = function (message) {
-                const json = JSON.parse(message.data);
-                if (json.event && json.event.source === 'Twitch') {
-                    if (json.event.type === 'RewardRedemption') {
-                        if (json.data.reward.id === '{{ $opening->streamerbot_reward_id }}')
-                        opening(json.data);
-                    }
-                }
+            ws.onclose = function() {
+                console.log('hmm');
+                setTimeout(connect, 2000);
             };
+            ws.onopen = function() {
+                ws.send(JSON.stringify(
+                    {
+                        "request": "Subscribe",
+                        "id": (request_id++).toString(),
+                        "events": {
+                            "Twitch": [
+                                "RewardRedemption"
+                            ]
+                        },
+                    }
+                ));
+                ws.onmessage = function (message) {
+                    const json = JSON.parse(message.data);
+                    if (json.event && json.event.source === 'Twitch') {
+                        if (json.event.type === 'RewardRedemption') {
+                            if (json.data.reward.id === '{{ $opening->streamerbot_reward_id }}')
+                                opening(json.data);
+                        }
+                    }
+                };
+            }
         }
+
+        connect();
     });
 </script>
 </body>
