@@ -4,6 +4,7 @@ use App\Http\Controllers\OBS\CaseOpeningController as OBSCaseOpeningController;
 use App\Http\Controllers\Web\CaseOpeningController;
 use App\Http\Controllers\Web\CaseOpeningRewardController;
 use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\PublicLeaderboardsController;
 use App\Http\Controllers\Web\PublicRewardChancesController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/chances/{username}', PublicRewardChancesController::class)->name('public.case_openings.rewards_chances');
+Route::get('/leaderboards/{username}', PublicLeaderboardsController::class)->name('public.leaderboards');
 
 Route::get('/obs/case_opening/{view_key}', [OBSCaseOpeningController::class, 'show'])->name('obs.case_openings.show');
 Route::post('/obs/case_opening/{view_key}/redeem', [OBSCaseOpeningController::class, 'redeem'])
