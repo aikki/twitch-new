@@ -28,9 +28,9 @@
         }
         .leaderboard .title {
             position: absolute;
-            font-size: 26px;
+            font-size: 22px;
             font-variant: all-small-caps;
-            top: -22px;
+            top: -19px;
             background-color: #18181b;
             font-weight: 600;
         }
