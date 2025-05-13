@@ -23,7 +23,12 @@
 {{--                                    </a>--}}
                                 </div>
                                 <a class="font-medium" href="{{ route('case_openings.edit', [ 'case_opening' => $opening->id ])  }}">
-                                    <i class="fa fa-box"></i> {{ $opening->name }}
+                                    @if($opening->type === \App\Enum\CaseOpeningType::CASE->value)
+                                        <i class="fa fa-box"></i>
+                                    @elseif($opening->type === \App\Enum\CaseOpeningType::WHEEL->value)
+                                        <i class="fa fa-dharmachakra"></i>
+                                    @endif
+                                    {{ $opening->name }}
                                 </a>
                             </div>
                             <hr/>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enum\CaseOpeningType;
 use App\Http\Controllers\Controller;
 use App\Models\CaseOpening;
 use Illuminate\Database\Query\Builder;
@@ -24,14 +25,18 @@ class CaseOpeningController extends Controller
 
     public function create(Request $request): View
     {
-        return view('case_opening.create', []);
+        return view('case_opening.create', [
+            'openingTypes' => CaseOpeningType::stringCases(),
+        ]);
     }
 
     public function edit(Request $request, CaseOpening $case_opening): View
     {
         Gate::authorize('update', $case_opening);
+
         return view('case_opening.edit', [
             'opening' => $case_opening,
+            'openingTypes' => CaseOpeningType::stringCases(),
         ]);
     }
 
@@ -47,7 +52,7 @@ class CaseOpeningController extends Controller
                 'required',
                 'max:255',
                 Rule::unique('case_openings')->where(fn (Builder $query) => $query->where('user_id', $request->user()->id))
-            ]
+            ],
         ]);
 
         $case_opening = new CaseOpening();

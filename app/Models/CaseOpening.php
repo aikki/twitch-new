@@ -16,6 +16,7 @@ class CaseOpening extends Model
     protected $fillable = [
         'name',
         'streamerbot_reward_id',
+        'type',
     ];
 
     public function user(): BelongsTo
