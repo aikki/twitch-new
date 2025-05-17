@@ -221,16 +221,18 @@
                         "events": {
                             "Twitch": [
                                 "RewardRedemption"
+                            ],
+                            "General": [
+                                "Custom"
                             ]
                         },
                     }
                 ));
                 ws.onmessage = function (message) {
                     const json = JSON.parse(message.data);
-                    if (json.event && json.event.source === 'Twitch') {
-                        if (json.event.type === 'RewardRedemption') {
-                            if (json.data.reward.id === '{{ $opening->streamerbot_reward_id }}')
-                                opening(json.data);
+                    if (json.event && (json.event.source === 'Twitch' && json.event.type === 'RewardRedemption' || json.event.source === 'General' && json.event.type === 'Custom')) {
+                        if (json.data.reward.id === '{{ $opening->streamerbot_reward_id }}') {
+                            opening(json.data);
                         }
                     }
                 };

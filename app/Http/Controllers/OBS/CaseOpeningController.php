@@ -77,6 +77,8 @@ class CaseOpeningController extends Controller
         $rewards = $opening->rewards;
         $winner = $opening->randomRewardWeighted;
 
+        CaseOpeningRedemption::fromRewardAndRequestData($winner, $data)->save();
+
         return [
             'segments' => $rewards->map(function ($reward) use ($data, $winner) {
                 return ['label' => $reward->name, 'share' => ($reward->chance()/100), 'color' => $reward->color];
